@@ -15,7 +15,21 @@
     --text-muted: #94a3b8;
     --accent: #67e8f9;
 }
+:root {
+    --orbit-radius: 140px;
+}
 
+@media (max-width: 768px) {
+    :root {
+        --orbit-radius: 190px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --orbit-radius: 85px;
+    }
+}
 html {
     scroll-behavior: smooth;
 }
@@ -333,43 +347,80 @@ img {
 
 .orbit-container {
     position: relative;
-    width: 450px;
-    height: 350px;
+    width: clamp(260px, 40vw, 400px);
+    aspect-ratio: 1 / 1;
+    margin: auto;
+    --offset-x: 20px;
+    --offset-y: 20px;
 }
 
 .orbit-ring {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 300px; /* đường kính quỹ đạo */
-    height: 300px;
+    width: 70%;
+    height: 70%;
     border: 2px dashed #666;
     border-radius: 50%;
     transform: translate(-50%, -50%);
-    pointer-events: none;
-    box-sizing: border-box;
+}
+
+
+.logo-ou {
+    --delay: 0;
+    --center-x: 50%;
+    --center-y: 65%;
+    --offset-x: 5px;
+}
+
+.logo-codegym {
+    --delay: 8;
+    --center-x: 55%;
+    --center-y: 65%;
+    --offset-x: 5px;
+}
+
+.logo-fpt {
+    --delay: 16;
+    --center-x: 45%;
+    --center-y: 58%;
+}
+
+@media (max-width: 768px) {
+    .logo-ou {
+        --offset-y: -12px;
+        --offset-x: -5px;
+    }
+
+    .logo-codegym {
+        --offset-y: -12px;
+        --offset-x: -5px;
+    }
+
+    .logo-fpt {--offset-y: -5px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --offset-x: 0px;
+        --offset-y: 20px;
+    }
 }
 
 .logo-item {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    transform-origin: 0 0;
+    top: var(--center-y, 50%);
+    left: var(--center-x, 50%);
     animation: orbit 24s linear infinite;
     animation-delay: calc(var(--delay) * -1s);
 }
 
 .logo-face {
     position: absolute;
-    width: 200px;
-    height: 200px;
-    left: -100px; /* nửa kích thước logo để căn giữa */
-    top: -100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: clamp(80px, 15vw, 180px);
+    height: clamp(80px, 15vw, 180px);
+    transform: translate(-50%, -50%);
 }
 
 .logo-face img {
@@ -378,28 +429,26 @@ img {
     object-fit: contain;
 }
 
-
 @keyframes orbit {
     0% {
-        transform: translate(-50%, -50%) rotate(0deg) translate(150px, 0) rotate(0deg);
+        transform:
+                translate(-50%, -50%)
+                translate(var(--offset-x), var(--offset-y))
+                rotate(0deg)
+                translateX(var(--orbit-radius))
+                rotate(0deg);
     }
     100% {
-        transform: translate(-50%, -50%) rotate(360deg) translate(150px, 0) rotate(-360deg);
+        transform:
+                translate(-50%, -50%)
+                translate(var(--offset-x), var(--offset-y))
+                rotate(360deg)
+                translateX(var(--orbit-radius))
+                rotate(-360deg);
     }
 }
 
 
-.logo-item:nth-child(1) {
-    --delay: 0;
-}
-
-.logo-item:nth-child(2) {
-    --delay: 8;
-}
-
-.logo-item:nth-child(3) {
-    --delay: 16;
-}
 
 .skills-container {
     display: flex;
