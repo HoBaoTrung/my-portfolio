@@ -1,7 +1,12 @@
 // Modal elements
 const modal = document.getElementById('projectModal');
 const closeBtn = document.querySelector('.close');
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
 
+burger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
 // Project data
 const projects = {
     social: {
